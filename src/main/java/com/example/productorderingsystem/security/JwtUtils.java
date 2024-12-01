@@ -1,24 +1,29 @@
 package com.example.productorderingsystem.security;
 
 import java.nio.charset.StandardCharsets;
-
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-
 
 import com.example.productorderingsystem.entity.User;
 
 import java.util.Date;
 import java.util.function.Function;
+
+@Service
+@Slf4j
 public class JwtUtils {
-     private static final long EXPIRATION_TIME_IN_MILLISEC = 1000L * 60L *60L *24L * 30L * 6L; //expirers 6 months
+
+
+    private static final long EXPIRATION_TIME_IN_MILLISEC = 1000L * 60L *60L *24L * 30L * 6L; //expirers 6 months
     private SecretKey key;
 
     @Value("${secreteJwtString}")
@@ -60,6 +65,5 @@ public class JwtUtils {
     private boolean isTokenExpired(String token){
         return extractClaims(token, Claims::getExpiration).before(new Date());
     }
-
 
 }
