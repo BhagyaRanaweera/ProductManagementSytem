@@ -1,23 +1,23 @@
-package com.example.productorderingsystem.controller;
-import com.example.productorderingsystem.dto.AddressDto;
-import com.example.productorderingsystem.dto.Response;
-import com.example.productorderingsystem.service.interf.AddressService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+// package com.example.productorderingsystem.controller;
+// import com.example.productorderingsystem.dto.AddressDto;
+// import com.example.productorderingsystem.dto.Response;
+// import com.example.productorderingsystem.service.interf.AddressService;
+// import lombok.RequiredArgsConstructor;
+// import org.springframework.http.ResponseEntity;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/address")
-@RequiredArgsConstructor
-public class AddressController {
+// @RestController
+// @RequestMapping("/address")
+// @RequiredArgsConstructor
+// public class AddressController {
 
-    private final AddressService addressService;
+//     private final AddressService addressService;
 
-    @PostMapping("/save")
-    public ResponseEntity<Response> saveAndUpdateAddress(@RequestBody AddressDto addressDto){
-        return ResponseEntity.ok(addressService.saveAndUpdateAddress(addressDto));
-    }
-}
+//     @PostMapping("/save")
+//     public ResponseEntity<Response> saveAndUpdateAddress(@RequestBody AddressDto addressDto){
+//         return ResponseEntity.ok(addressService.saveAndUpdateAddress(addressDto));
+//     }
+// }

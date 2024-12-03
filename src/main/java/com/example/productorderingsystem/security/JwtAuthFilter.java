@@ -23,13 +23,13 @@ import java.io.IOException;
 
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+   
     private final JwtUtils jwtUtils;
     private final  CustomUserDetailsService customUserDetailsService;
 
 
-    @SuppressWarnings("null")
     @Override
-    protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String token = getTokenFromRequest(request);
 

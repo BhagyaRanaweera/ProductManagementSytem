@@ -102,14 +102,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User Not found"));
     }
 
-    @Override
-    public Response getUserInfoAndOrderHistory() {
-        User user = getLoginUser();
-        UserDto userDto = entityDtoMapper.mapUserToDtoPlusAddressAndOrderHistory(user);
+    // @Override
+    // public Response getUserInfoAndOrderHistory() {
+    //     User user = getLoginUser();
+    //     UserDto userDto = entityDtoMapper.mapUserToDtoPlusAddressAndOrderHistory(user);
 
-        return Response.builder()
-                .status(200)
-                .user(userDto)
-                .build();
-    }
+    //     return Response.builder()
+    //             .status(200)
+    //             .user(userDto)
+    //             .build();
+    // }
 }
