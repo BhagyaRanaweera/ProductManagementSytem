@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+//import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -24,6 +24,6 @@ public class UserDto {
     private String phoneNumber;
     private String password;
     private String role;
-    private List<OrderItemDto> orderItemList;
-    private AddressDto address;
+    // private List<OrderItemDto> orderItemList;
+    // private AddressDto address;
 }

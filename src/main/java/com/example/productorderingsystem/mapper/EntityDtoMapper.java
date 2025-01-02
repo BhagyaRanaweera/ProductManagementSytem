@@ -3,7 +3,7 @@ import com.example.productorderingsystem.dto.*;
 import com.example.productorderingsystem.entity.*;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 @Component
 public class EntityDtoMapper {
@@ -65,18 +65,18 @@ public class EntityDtoMapper {
         return productDto;
     }
 
-    public UserDto mapUserToDtoPlusAddress(User user){
+    // public UserDto mapUserToDtoPlusAddress(User user){
 
-        System.out.println("mapUserToDtoPlusAddress is called");
-        UserDto userDto = mapUserToDtoBasic(user);
-        if (user.getAddress() != null){
+    //     System.out.println("mapUserToDtoPlusAddress is called");
+    //     UserDto userDto = mapUserToDtoBasic(user);
+    //     if (user.getAddress() != null){
 
-            AddressDto addressDto = mapAddressToDtoBasic(user.getAddress());
-            userDto.setAddress(addressDto);
+    //         AddressDto addressDto = mapAddressToDtoBasic(user.getAddress());
+    //         userDto.setAddress(addressDto);
 
-        }
-        return userDto;
-    }
+    //     }
+    //     return userDto;
+    // }
 
 
     //orderItem to DTO plus product
@@ -91,31 +91,31 @@ public class EntityDtoMapper {
     }
 
 
-    //OrderItem to DTO plus product and user
-    public OrderItemDto mapOrderItemToDtoPlusProductAndUser(OrderItem orderItem){
-        OrderItemDto orderItemDto = mapOrderItemToDtoPlusProduct(orderItem);
+    // //OrderItem to DTO plus product and user
+    // public OrderItemDto mapOrderItemToDtoPlusProductAndUser(OrderItem orderItem){
+    //     OrderItemDto orderItemDto = mapOrderItemToDtoPlusProduct(orderItem);
 
-        if (orderItem.getUser() != null){
-            UserDto userDto = mapUserToDtoPlusAddress(orderItem.getUser());
-            orderItemDto.setUser(userDto);
-        }
-        return orderItemDto;
-    }
+    //     if (orderItem.getUser() != null){
+    //         UserDto userDto = mapUserToDtoPlusAddress(orderItem.getUser());
+    //         orderItemDto.setUser(userDto);
+    //     }
+    //     return orderItemDto;
+    // }
 
 
-    //USer to DTO with Address and Order Items History
-    public UserDto mapUserToDtoPlusAddressAndOrderHistory(User user) {
-        UserDto userDto = mapUserToDtoPlusAddress(user);
+    // //USer to DTO with Address and Order Items History
+    // public UserDto mapUserToDtoPlusAddressAndOrderHistory(User user) {
+    //     UserDto userDto = mapUserToDtoPlusAddress(user);
 
-        if (user.getOrderItemList() != null && !user.getOrderItemList().isEmpty()) {
-            userDto.setOrderItemList(user.getOrderItemList()
-                    .stream()
-                    .map(this::mapOrderItemToDtoPlusProduct)
-                    .collect(Collectors.toList()));
-        }
-        return userDto;
+    //     if (user.getOrderItemList() != null && !user.getOrderItemList().isEmpty()) {
+    //         userDto.setOrderItemList(user.getOrderItemList()
+    //                 .stream()
+    //                 .map(this::mapOrderItemToDtoPlusProduct)
+    //                 .collect(Collectors.toList()));
+    //     }
+    //     return userDto;
 
-    }
+    // }
 
 
 

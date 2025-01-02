@@ -15,16 +15,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 @Service
 @Slf4j
 public class AwsS3Service {
 
-    private final String bucketName = "phegon-ecommerce";
+    private final String bucketName = "product-ecommerce";
 
-    @Value("${aws.s3.access}")
-    private String awsS3AccessKey;
-    @Value("${aws.s3.secrete}")
-    private String awsS3SecreteKey;
+    @Value("${aws.s3.access:defaultAccessKey}")
+private String awsS3AccessKey;
+
+@Value("${aws.s3.secrete:defaultSecretKey}")
+private String awsS3SecreteKey;
+
 
 
     public String saveImageToS3(MultipartFile photo){
@@ -36,7 +39,7 @@ public class AwsS3Service {
             //create an s3 client with config credentials and region
             AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                     .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                    .withRegion(Regions.US_EAST_2)
+                    .withRegion(Regions.EU_NORTH_1)
                     .build();
 
             //get input stream from photo
@@ -50,7 +53,7 @@ public class AwsS3Service {
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, s3FileName, inputStream, metadata);
             s3Client.putObject(putObjectRequest);
 
-            return "https://" + bucketName + ".s3.us-east-2.amazonaws.com/" + s3FileName;
+            return "https://" + bucketName + ".s3.eu-north-1.amazonaws.com/" + s3FileName;
 
         }catch (IOException e){
             e.printStackTrace();
@@ -58,3 +61,4 @@ public class AwsS3Service {
         }
     }
 }
+
