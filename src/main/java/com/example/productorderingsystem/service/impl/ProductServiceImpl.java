@@ -1,6 +1,5 @@
 package com.example.productorderingsystem.service.impl;
 
-
 import com.example.productorderingsystem.dto.ProductDto;
 import com.example.productorderingsystem.dto.Response;
 import com.example.productorderingsystem.entity.Category;
@@ -34,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Response createProduct(Long categoryId, MultipartFile image, String name, String description, BigDecimal price) {
+    public Response createProduct(String categoryId, MultipartFile image, String name, String description, BigDecimal price) {
         Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new NotFoundException("Category not found"));
         String productImageUrl = awsS3Service.saveImageToS3(image);
 
@@ -53,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Response updateProduct(Long productId, Long categoryId, MultipartFile image, String name, String description, BigDecimal price) {
+    public Response updateProduct(String productId, String categoryId, MultipartFile image, String name, String description, BigDecimal price) {
         Product product = productRepo.findById(productId).orElseThrow(()-> new NotFoundException("Product Not Found"));
 
         Category category = null;
@@ -81,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Response deleteProduct(Long productId) {
+    public Response deleteProduct(String productId) {
         Product product = productRepo.findById(productId).orElseThrow(()-> new NotFoundException("Product Not Found"));
         productRepo.delete(product);
 
@@ -92,7 +91,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Response getProductById(Long productId) {
+    public Response getProductById(String productId) {
         Product product = productRepo.findById(productId).orElseThrow(()-> new NotFoundException("Product Not Found"));
         ProductDto productDto = entityDtoMapper.mapProductToDtoBasic(product);
 
@@ -117,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Response getProductsByCategory(Long categoryId) {
+    public Response getProductsByCategory(String categoryId) {
         List<Product> products = productRepo.findByCategoryId(categoryId);
         if(products.isEmpty()){
             throw new NotFoundException("No Products found for this category");
