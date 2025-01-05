@@ -6,8 +6,8 @@ import com.example.productorderingsystem.dto.Response;
 public interface CategoryService {
 
     Response createCategory(CategoryDto categoryRequest);
-    Response updateCategory(Long categoryId, CategoryDto categoryRequest);
+    Response updateCategory(String categoryId, CategoryDto categoryRequest);
     Response getAllCategories();
-    Response getCategoryById(Long categoryId);
-    Response deleteCategory(Long categoryId);
+    Response getCategoryById(String categoryId);
+    Response deleteCategory(String categoryId);
 }
