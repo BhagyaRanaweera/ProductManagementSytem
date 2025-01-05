@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 //import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.time.LocalDateTime;
-//import java.util.List;
+import java.util.List;
+
 
 @Data
 @Document(collection = "users")
@@ -30,11 +32,11 @@ public class User {
 
     private UserRole role;
 
-    // @DBRef
-    // private List<OrderItem> orderItemList;
+    @DBRef
+    private List<OrderItem> orderItemList;
 
-    // @DBRef
-    // private Address address;
+    @DBRef
+    private Address address;
 
     private final LocalDateTime createdAt = LocalDateTime.now();
 }
