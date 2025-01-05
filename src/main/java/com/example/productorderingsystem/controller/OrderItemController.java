@@ -1,12 +1,13 @@
 package com.example.productorderingsystem.controller;
 
-
-
 import com.example.productorderingsystem.dto.OrderRequest;
 import com.example.productorderingsystem.dto.Response;
+
 import com.example.productorderingsystem.enums.OrderStatus;
 import com.example.productorderingsystem.service.interf.OrderItemService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,10 +31,15 @@ public class OrderItemController {
     }
 
     @PutMapping("/update-item-status/{orderItemId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> updateOrderItemStatus(@PathVariable Long orderItemId,  @RequestParam String status){
-        return ResponseEntity.ok(orderItemService.updateOrderItemStatus(orderItemId, status));
-    }
+@PreAuthorize("hasAuthority('ADMIN')")
+public ResponseEntity<Response> updateOrderItemStatus(@PathVariable String orderItemId, @RequestParam String status) {
+    System.out.println("Received OrderItemId: " + orderItemId);
+    System.out.println("Received Status: " + status);
+    Response response = orderItemService.updateOrderItemStatus(orderItemId, status);
+    System.out.println("Response: " + response.getMessage());
+    return ResponseEntity.ok(response);
+}
+
 
 
     @GetMapping("/filter")
@@ -42,7 +48,7 @@ public class OrderItemController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime endDate,
             @RequestParam(required = false) String status,
-            @RequestParam(required = false) Long itemId,
+            @RequestParam(required = false) String itemId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "1000") int size
 

@@ -1,6 +1,5 @@
 package com.example.productorderingsystem.controller;
 
-
 import com.example.productorderingsystem.dto.CategoryDto;
 import com.example.productorderingsystem.dto.Response;
 import com.example.productorderingsystem.service.interf.CategoryService;
@@ -29,18 +28,18 @@ public class CategoryController {
 
     @PutMapping("/update/{categoryId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryDto categoryDto){
+    public ResponseEntity<Object> updateCategory(@PathVariable String categoryId, @RequestBody CategoryDto categoryDto){
         return ResponseEntity.ok(categoryService.updateCategory(categoryId, categoryDto));
     }
 
     @DeleteMapping("/delete/{categoryId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> deleteCategory(@PathVariable Long categoryId){
+    public ResponseEntity<Object> deleteCategory(@PathVariable String categoryId){
         return ResponseEntity.ok(categoryService.deleteCategory(categoryId));
     }
 
     @GetMapping("/get-category-by-id/{categoryId}")
-    public ResponseEntity<Response> getCategoryById(@PathVariable Long categoryId){
+    public ResponseEntity<Object> getCategoryById(@PathVariable String categoryId){
         return ResponseEntity.ok(categoryService.getCategoryById(categoryId));
     }
 

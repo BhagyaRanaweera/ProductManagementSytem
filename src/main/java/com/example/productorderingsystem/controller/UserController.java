@@ -28,9 +28,9 @@ public class UserController {
 
     /**
      * Get the user's information and order history.
-     */
-    // @GetMapping("/my-info")
-    // public ResponseEntity<Response> getUserInfoAndOrderHistory() {
-    //     return ResponseEntity.ok(userService.getUserInfoAndOrderHistory());
-    // }
+    //  */
+     @GetMapping("/my-info")
+     public ResponseEntity<Response> getUserInfoAndOrderHistory() {
+         return ResponseEntity.ok(userService.getUserInfoAndOrderHistory());
+     }
 }

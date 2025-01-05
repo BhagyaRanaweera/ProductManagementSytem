@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,8 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CategoryDto {
 
-    private String id;  // MongoDB uses String for ObjectId
-
-    private String name;
-    private List<ProductDto> productList;
+    private String id;
+    private String  name;
+    private List<ProductDto> productList; 
 }
