@@ -1,5 +1,6 @@
 package com.example.productorderingsystem.service;
 
+
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
@@ -15,19 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 @Service
 @Slf4j
 public class AwsS3Service {
 
     private final String bucketName = "product-ecommerce";
 
-    @Value("${aws.s3.access:defaultAccessKey}")
-private String awsS3AccessKey;
-
-@Value("${aws.s3.secrete:defaultSecretKey}")
-private String awsS3SecreteKey;
-
+    @Value("${aws.s3.access}")
+    private String awsS3AccessKey;
+    @Value("${aws.s3.secrete}")
+    private String awsS3SecreteKey;
 
 
     public String saveImageToS3(MultipartFile photo){
@@ -61,4 +59,3 @@ private String awsS3SecreteKey;
         }
     }
 }
-
