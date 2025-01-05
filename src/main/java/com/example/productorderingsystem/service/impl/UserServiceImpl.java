@@ -22,6 +22,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+
+@SuppressWarnings("unused")
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -59,15 +62,15 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+
+
     @Override
     public Response loginUser(LoginRequest loginRequest) {
-        User user = userRepo.findByEmail(loginRequest.getEmail())
-        .orElseThrow(() -> new NotFoundException("Email not found"));
 
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+        User user = userRepo.findByEmail(loginRequest.getEmail()).orElseThrow(()-> new NotFoundException("Email not found"));
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
             throw new InvalidCredentialsException("Password does not match");
         }
-
         String token = jwtUtils.generateToken(user);
 
         return Response.builder()
@@ -81,10 +84,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response getAllUsers() {
+
         List<User> users = userRepo.findAll();
         List<UserDto> userDtos = users.stream()
                 .map(entityDtoMapper::mapUserToDtoBasic)
-                .collect(Collectors.toList());
+                .toList();
 
         return Response.builder()
                 .status(200)
@@ -95,21 +99,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getLoginUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
+        String  email = authentication.getName();
         log.info("User Email is: " + email);
-        
         return userRepo.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not found"));
+                .orElseThrow(()-> new UsernameNotFoundException("User Not found"));
     }
 
-    // @Override
-    // public Response getUserInfoAndOrderHistory() {
-    //     User user = getLoginUser();
-    //     UserDto userDto = entityDtoMapper.mapUserToDtoPlusAddressAndOrderHistory(user);
 
-    //     return Response.builder()
-    //             .status(200)
-    //             .user(userDto)
-    //             .build();
-    // }
+
+
+    @Override
+    public Response getUserInfoAndOrderHistory() {
+        User user = getLoginUser();
+        UserDto userDto = entityDtoMapper.mapUserToDtoPlusAddressAndOrderHistory(user);
+
+        return Response.builder()
+                .status(200)
+                .user(userDto)
+                .build();
+    }
 }
