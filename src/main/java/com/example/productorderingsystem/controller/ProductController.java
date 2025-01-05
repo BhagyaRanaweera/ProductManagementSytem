@@ -1,10 +1,12 @@
 package com.example.productorderingsystem.controller;
 
 
-
 import com.example.productorderingsystem.dto.Response;
 import com.example.productorderingsystem.exception.InvalidCredentialsException;
+
 import com.example.productorderingsystem.service.interf.ProductService;
+
+//import com.example.productorderingsystem.service.interf.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +26,7 @@ public class ProductController {
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> createProduct(
-            @RequestParam Long categoryId,
+            @RequestParam String categoryId,
             @RequestParam MultipartFile image,
             @RequestParam String name,
             @RequestParam String description,
@@ -40,8 +42,8 @@ public class ProductController {
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> updateProduct(
-            @RequestParam Long productId,
-            @RequestParam(required = false) Long categoryId,
+            @RequestParam String productId,
+            @RequestParam(required = false) String categoryId,
             @RequestParam(required = false)  MultipartFile image,
             @RequestParam(required = false)  String name,
             @RequestParam(required = false)  String description,
@@ -52,14 +54,14 @@ public class ProductController {
 
     @DeleteMapping("/delete/{productId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> deleteProduct(@PathVariable Long productId){
+    public ResponseEntity<Response> deleteProduct(@PathVariable String productId){
         return ResponseEntity.ok(productService.deleteProduct(productId));
 
     }
 
 
     @GetMapping("/get-by-product-id/{productId}")
-    public ResponseEntity<Response> getProductById(@PathVariable Long productId){
+    public ResponseEntity<Response> getProductById(@PathVariable String productId){
         return ResponseEntity.ok(productService.getProductById(productId));
     }
 
@@ -70,7 +72,7 @@ public class ProductController {
 
 
     @GetMapping("/get-by-category-id/{categoryId}")
-    public ResponseEntity<Response> getProductsByCategory(@PathVariable Long categoryId){
+    public ResponseEntity<Response> getProductsByCategory(@PathVariable String categoryId){
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
 
