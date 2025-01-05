@@ -1,15 +1,10 @@
 package com.example.productorderingsystem.repository;
-
-
-
-import com.example.productorderingsystem.entity.OrderItem;
-
-import java.util.List;
-
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface OrderItemRepo extends MongoRepository<OrderItem,String> {
-    // Custom queries can be defined here if needed, such as finding by order ID or product ID
-    List<OrderItem> findByOrderId(Long orderId);
-    List<OrderItem> findByProductId(Long productId);
+import org.springframework.stereotype.Repository;
+
+import com.example.productorderingsystem.entity.OrderItem;
+@Repository
+public interface OrderItemRepo extends MongoRepository<OrderItem, String> {
+    // Add custom query methods if needed
 }

@@ -1,7 +1,5 @@
 package com.example.productorderingsystem.entity;
 
-
-
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,15 +14,14 @@ import java.util.List;
 public class Order {
 
     @Id
-    private String id; 
-
+    private String id; // MongoDB uses String for ID by default
     private BigDecimal totalPrice;
 
-    
-    @DBRef 
+    // @DBRef used for referencing other documents (OrderItem in this case)
+    @DBRef(lazy = true) 
     private List<OrderItem> orderItemList;
 
     private final LocalDateTime createdAt = LocalDateTime.now();
 
-    // Additional fields for payment
+    // Payment details would be added here
 }

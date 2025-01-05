@@ -1,5 +1,37 @@
-{"properties": [{
-  "name": "security.jwt-secret-key",
-  "type": "java.lang.String",
-  "description": "A description for 'security.jwt-secret-key'"
-}]}
+{"properties": [
+  {
+    "name": "security.jwt-secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt-secret-key'"
+  },
+  {
+    "name": "aws.s3.access",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.s3.access'"
+  },
+  {
+    "name": "aws.s3.secrete",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.s3.secrete'"
+  },
+  {
+    "name": "aws.s3.region",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.s3.region'"
+  },
+  {
+    "name": "aws.s3.bucket.name",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.s3.bucket.name'"
+  },
+  {
+    "name": "stripe.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'stripe.api.key'"
+  },
+  {
+    "name": "springdoc.swagger-ui.path",
+    "type": "java.lang.String",
+    "description": "A description for 'springdoc.swagger-ui.path'"
+  }
+]}

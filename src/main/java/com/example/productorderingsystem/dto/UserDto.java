@@ -2,6 +2,10 @@ package com.example.productorderingsystem.dto;
 
 
 
+import java.util.List;
+
+//import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -17,13 +21,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
 
-    private String id;  // MongoDB uses String for ObjectId
-
+    private String id;
     private String email;
     private String name;
     private String phoneNumber;
     private String password;
     private String role;
-    // private List<OrderItemDto> orderItemList;
-    // private AddressDto address;
+    private List<OrderItemDto> orderItemList;
+    private AddressDto address;
+    
 }

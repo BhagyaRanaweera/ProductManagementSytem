@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,14 +12,16 @@ import java.util.List;
 @Document(collection = "categories")
 public class Category {
 
-    @Id
-    private String id; // MongoDB IDs are typically String (ObjectId)
+     @Id
+    private String id; // Use String for MongoDB ObjectId
+    private BigDecimal totalPrice;
 
-    private String name;
-
-    // Use @DBRef to reference related Product documents
-    @DBRef
-    private List<Product> productList;
+    @DBRef // Use DBRef if you want to reference another document
+    private List<OrderItem> orderItemList;
 
     private final LocalDateTime createdAt = LocalDateTime.now();
+
+    private String name;
+ 
+    
 }

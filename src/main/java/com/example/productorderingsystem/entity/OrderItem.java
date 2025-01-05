@@ -2,38 +2,39 @@ package com.example.productorderingsystem.entity;
 
 
 import com.example.productorderingsystem.enums.OrderStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "order_items")
 public class OrderItem {
 
     @Id
-    private String id; // MongoDB ObjectId
+    private String id; // Use String for MongoDB ObjectId
 
     private int quantity;
     private BigDecimal price;
     private OrderStatus status;
 
-    // Reference to the User
-    @DBRef
+    @DBRef // Use DBRef to reference other documents
     private User user;
 
-    // Reference to the Product
-    @DBRef
+    @DBRef // Use DBRef to reference other documents
     private Product product;
 
-    // Reference to the Order
-    @DBRef
+    @DBRef // Use DBRef to reference other documents
     private Order order;
 
-    private final LocalDateTime createdAt = LocalDateTime.now();
-
-    
+    private final LocalDateTime createdAt = LocalDateTime.now(); // Automatically set the creation time
 }

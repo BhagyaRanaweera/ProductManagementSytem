@@ -3,17 +3,21 @@ package com.example.productorderingsystem.service.impl;
 import com.example.productorderingsystem.dto.CategoryDto;
 import com.example.productorderingsystem.dto.Response;
 import com.example.productorderingsystem.entity.Category;
+
 import com.example.productorderingsystem.exception.NotFoundException;
 import com.example.productorderingsystem.mapper.EntityDtoMapper;
 import com.example.productorderingsystem.repository.CategoryRepo;
+
 import com.example.productorderingsystem.service.interf.CategoryService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Response updateCategory(Long categoryId, CategoryDto categoryRequest) {
+    public Response updateCategory(String categoryId, CategoryDto categoryRequest) {
         Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new NotFoundException("Category Not Found"));
         category.setName(categoryRequest.getName());
         categoryRepo.save(category);
@@ -62,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Response getCategoryById(Long categoryId) {
+    public Response getCategoryById(String categoryId) {
         Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new NotFoundException("Category Not Found"));
         CategoryDto categoryDto = entityDtoMapper.mapCategoryToDtoBasic(category);
         return Response.builder()
@@ -72,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Response deleteCategory(Long categoryId) {
+    public Response deleteCategory(String categoryId) {
         Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new NotFoundException("Category Not Found"));
         categoryRepo.delete(category);
         return Response.builder()
