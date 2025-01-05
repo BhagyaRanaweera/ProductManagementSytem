@@ -27,4 +27,6 @@ public class Product {
     private Category category;
 
     private final LocalDateTime createdAt = LocalDateTime.now();
+
+    
 }
