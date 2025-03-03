@@ -60,6 +60,7 @@ public class ProductController {
     }
 
 
+
     @GetMapping("/get-by-product-id/{productId}")
     public ResponseEntity<Response> getProductById(@PathVariable String productId){
         return ResponseEntity.ok(productService.getProductById(productId));
@@ -81,8 +82,17 @@ public class ProductController {
         return ResponseEntity.ok(productService.searchProduct(searchValue));
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<Response> filterProducts(
+            @RequestParam(required = false) String categoryId,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDirection) {
 
-
+        return ResponseEntity.ok(productService.filterProducts(categoryId, minPrice, maxPrice, name, sortBy, sortDirection));
+    }
 
 
 

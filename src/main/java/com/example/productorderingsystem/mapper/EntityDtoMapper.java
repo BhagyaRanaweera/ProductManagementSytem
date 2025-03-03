@@ -24,8 +24,8 @@ public class EntityDtoMapper {
 
     }
 
-    //Address to DTO Basic
-    public AddressDto mapAddressToDtoBasic(Address address){
+     //Address to DTO Basic
+     public AddressDto mapAddressToDtoBasic(Address address){
         AddressDto addressDto = new AddressDto();
         addressDto.setId(address.getId());
         addressDto.setCity(address.getCity());
