@@ -13,6 +13,9 @@ import com.example.productorderingsystem.service.interf.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +23,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+
+
+    @Service
 @Slf4j
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -30,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
     private final EntityDtoMapper entityDtoMapper;
     private final AwsS3Service awsS3Service;
 
+    private final MongoTemplate mongoTemplate; // Inject MongoTemplate
 
 
     @Override
@@ -143,6 +149,44 @@ public class ProductServiceImpl implements ProductService {
                 .map(entityDtoMapper::mapProductToDtoBasic)
                 .collect(Collectors.toList());
 
+
+        return Response.builder()
+                .status(200)
+                .productList(productDtoList)
+                .build();
+    }
+
+    @Override
+    public Response filterProducts(String categoryId, BigDecimal minPrice, BigDecimal maxPrice, String name, String sortBy, String sortDirection) {
+        Query query = new Query();
+
+        if (categoryId != null) {
+            query.addCriteria(Criteria.where("category.id").is(categoryId)); // Adjusted to match your Product structure
+        }
+        if (minPrice != null) {
+            query.addCriteria(Criteria.where("price").gte(minPrice));
+        }
+        if (maxPrice != null) {
+            query.addCriteria(Criteria.where("price").lte(maxPrice));
+        }
+        if (name != null) {
+            query.addCriteria(Criteria.where("name").regex(name, "i")); // Case-insensitive search
+        }
+
+        if ("desc".equalsIgnoreCase(sortDirection)) {
+            query.with(Sort.by(Sort.Order.desc(sortBy)));
+        } else {
+            query.with(Sort.by(Sort.Order.asc(sortBy)));
+        }
+
+        List<Product> products = mongoTemplate.find(query, Product.class);
+        if (products.isEmpty()) {
+            throw new NotFoundException("No products found matching the criteria");
+        }
+
+        List<ProductDto> productDtoList = products.stream()
+                .map(entityDtoMapper::mapProductToDtoBasic)
+                .collect(Collectors.toList());
 
         return Response.builder()
                 .status(200)
