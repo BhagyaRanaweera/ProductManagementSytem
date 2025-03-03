@@ -28,18 +28,18 @@ public class CategoryController {
 
     @PutMapping("/update/{categoryId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Object> updateCategory(@PathVariable String categoryId, @RequestBody CategoryDto categoryDto){
+    public ResponseEntity<Response> updateCategory(@PathVariable String categoryId, @RequestBody CategoryDto categoryDto){
         return ResponseEntity.ok(categoryService.updateCategory(categoryId, categoryDto));
     }
 
     @DeleteMapping("/delete/{categoryId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Object> deleteCategory(@PathVariable String categoryId){
+    public ResponseEntity<Response> deleteCategory(@PathVariable String categoryId){
         return ResponseEntity.ok(categoryService.deleteCategory(categoryId));
     }
 
     @GetMapping("/get-category-by-id/{categoryId}")
-    public ResponseEntity<Object> getCategoryById(@PathVariable String categoryId){
+    public ResponseEntity<Response> getCategoryById(@PathVariable String categoryId){
         return ResponseEntity.ok(categoryService.getCategoryById(categoryId));
     }
 
