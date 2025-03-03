@@ -14,4 +14,5 @@ public interface ProductService {
     Response getAllProducts();
     Response getProductsByCategory(String categoryId);
     Response searchProduct(String searchValue);
+    Response filterProducts(String categoryId, BigDecimal minPrice, BigDecimal maxPrice, String name, String sortBy, String sortDirection);
 }
