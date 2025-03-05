@@ -14,4 +14,7 @@ public interface OrderItemService {
     Response placeOrder(OrderRequest orderRequest);
     Response updateOrderItemStatus(String orderItemId, String status);
     Response filterOrderItems(OrderStatus status, LocalDateTime startDate, LocalDateTime endDate, String itemId, Pageable pageable);
+    Response getUserOrders(Pageable pageable);  // ✅ Add this new method
+    
 }
+

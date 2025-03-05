@@ -157,40 +157,45 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Response filterProducts(String categoryId, BigDecimal minPrice, BigDecimal maxPrice, String name, String sortBy, String sortDirection) {
-        Query query = new Query();
+public Response filterProducts(String categoryId, BigDecimal minPrice, BigDecimal maxPrice, String name, String sortBy, String sortDirection) {
+    Query query = new Query();
 
-        if (categoryId != null) {
-            query.addCriteria(Criteria.where("category.id").is(categoryId)); // Adjusted to match your Product structure
-        }
+    if (categoryId != null) {
+        query.addCriteria(Criteria.where("category.id").is(categoryId));
+    }
+    if (minPrice != null || maxPrice != null) {
+        Criteria priceCriteria = Criteria.where("price");
         if (minPrice != null) {
-            query.addCriteria(Criteria.where("price").gte(minPrice));
+            priceCriteria = priceCriteria.gte(minPrice);
         }
         if (maxPrice != null) {
-            query.addCriteria(Criteria.where("price").lte(maxPrice));
+            priceCriteria = priceCriteria.lte(maxPrice);
         }
-        if (name != null) {
-            query.addCriteria(Criteria.where("name").regex(name, "i")); // Case-insensitive search
-        }
-
-        if ("desc".equalsIgnoreCase(sortDirection)) {
-            query.with(Sort.by(Sort.Order.desc(sortBy)));
-        } else {
-            query.with(Sort.by(Sort.Order.asc(sortBy)));
-        }
-
-        List<Product> products = mongoTemplate.find(query, Product.class);
-        if (products.isEmpty()) {
-            throw new NotFoundException("No products found matching the criteria");
-        }
-
-        List<ProductDto> productDtoList = products.stream()
-                .map(entityDtoMapper::mapProductToDtoBasic)
-                .collect(Collectors.toList());
-
-        return Response.builder()
-                .status(200)
-                .productList(productDtoList)
-                .build();
+        query.addCriteria(priceCriteria); // Add the combined criteria
     }
+    if (name != null && !name.isEmpty()) {
+        query.addCriteria(Criteria.where("name").regex(".*" + name + ".*", "i"));
+    }
+
+    // Sorting
+    Sort.Direction direction = "desc".equalsIgnoreCase(sortDirection) ? Sort.Direction.DESC : Sort.Direction.ASC;
+    query.with(Sort.by(direction, sortBy));
+
+    List<Product> products = mongoTemplate.find(query, Product.class);
+    
+    if (products.isEmpty()) {
+        throw new NotFoundException("No products found matching the criteria");
+    }
+
+    List<ProductDto> productDtoList = products.stream()
+            .map(entityDtoMapper::mapProductToDtoBasic)
+            .collect(Collectors.toList());
+
+    return Response.builder()
+            .status(200)
+            .productList(productDtoList)
+            .build();
+}
+
+    
 }

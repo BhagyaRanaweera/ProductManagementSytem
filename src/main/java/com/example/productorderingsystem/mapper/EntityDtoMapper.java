@@ -2,9 +2,11 @@ package com.example.productorderingsystem.mapper;
 
 import com.example.productorderingsystem.dto.*;
 import com.example.productorderingsystem.entity.*;
+import com.example.productorderingsystem.enums.OrderStatus;
+
 import org.springframework.stereotype.Component;
 
-
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @Component
@@ -45,6 +47,7 @@ public class EntityDtoMapper {
     }
 
 
+
     //OrderItem to DTO Basics
     public OrderItemDto mapOrderItemToDtoBasic(OrderItem orderItem){
         OrderItemDto orderItemDto = new OrderItemDto();
@@ -81,8 +84,8 @@ public class EntityDtoMapper {
     }
 
 
-    //orderItem to DTO plus product
-    public OrderItemDto mapOrderItemToDtoPlusProduct(OrderItem orderItem){
+     //orderItem to DTO plus product
+     public OrderItemDto mapOrderItemToDtoPlusProduct(OrderItem orderItem){
         OrderItemDto orderItemDto = mapOrderItemToDtoBasic(orderItem);
 
         if (orderItem.getProduct() != null) {
@@ -103,8 +106,6 @@ public class EntityDtoMapper {
         }
         return orderItemDto;
     }
-
-
     //USer to DTO with Address and Order Items History
     public UserDto mapUserToDtoPlusAddressAndOrderHistory(User user) {
         UserDto userDto = mapUserToDtoPlusAddress(user);

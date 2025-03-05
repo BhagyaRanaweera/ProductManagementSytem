@@ -1,24 +1,26 @@
-
 package com.example.productorderingsystem.controller;
+
 import com.example.productorderingsystem.dto.AddressDto;
-import com.example.productorderingsystem.dto.Response;
 import com.example.productorderingsystem.service.interf.AddressService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/address")
-@RequiredArgsConstructor
+@RequestMapping("/api/addresses")
 public class AddressController {
 
-    private final AddressService addressService;
+    @Autowired
+    private AddressService addressService;
 
-    @PostMapping("/save")
-    public ResponseEntity<Response> saveAndUpdateAddress(@RequestBody AddressDto addressDto){
-        return ResponseEntity.ok(addressService.saveAndUpdateAddress(addressDto));
+    @PostMapping("/{userId}")
+    public AddressDto saveAddress(@RequestBody AddressDto addressDto, @PathVariable String userId) {
+        return addressService.saveAddress(addressDto, userId);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<AddressDto> getAddressesByUser(@PathVariable String userId) {
+        return addressService.getAddressesByUserId(userId);
     }
 }

@@ -1,7 +1,10 @@
 package com.example.productorderingsystem.service.interf;
 
 import com.example.productorderingsystem.dto.AddressDto;
-import com.example.productorderingsystem.dto.Response;
+
+import java.util.List;
+
 public interface AddressService {
-    Response saveAndUpdateAddress(AddressDto addressDto);
+    AddressDto saveAddress(AddressDto addressDto, String userId);
+    List<AddressDto> getAddressesByUserId(String userId);
 }

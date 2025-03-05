@@ -3,8 +3,11 @@ package com.example.productorderingsystem.repository;
 
 import com.example.productorderingsystem.dto.Response;
 import com.example.productorderingsystem.entity.Product;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,5 +23,15 @@ public interface ProductRepo extends MongoRepository<Product,String> {
             + "{ $or: [ { 'name': { $regex: ?3, $options: 'i' } }, { ?3: null } ] }"
             + "] }")
     List<Product> findByFilters(String categoryId, BigDecimal minPrice, BigDecimal maxPrice, String name);
+     @Query("SELECT p FROM Product p WHERE " +
+            "(:categoryId IS NULL OR p.category.id = :categoryId) " +
+            "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice) " +
+            "AND (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%')))")
+    List<Product> findByFilters(@Param("categoryId") String categoryId,
+                                @Param("minPrice") BigDecimal minPrice,
+                                @Param("maxPrice") BigDecimal maxPrice,
+                                @Param("name") String name,
+                                Sort sort);
 
 }

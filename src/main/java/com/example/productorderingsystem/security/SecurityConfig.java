@@ -15,11 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.cors.CorsConfigurationSource;
-
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -34,7 +29,14 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/auth/**", "/category/**", "/product/**", "/orders/**").permitAll()
+                        // Permit Swagger related paths without authentication
+                        .requestMatchers("/v2/api-docs",       // Swagger v2 API docs
+                                         "/v3/api-docs/**",    // Swagger v3 API docs
+                                         "/swagger-ui/**",     // Swagger UI
+                                         "/swagger-resources/**", // Swagger resources
+                                         "/webjars/**").permitAll()
+                        // Permit other paths such as authentication and product-related paths
+                        .requestMatchers("/auth/**", "/category/**", "/product/**", "/orders/**","/address**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager-> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

@@ -13,16 +13,22 @@ import java.math.BigDecimal;
 
 
 
+
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
-    private String id;
+    private    String id;
     private String name;
     private  String description;
     private BigDecimal price;
     private String imageUrl;
     private CategoryDto category;
+    // public void setId(ObjectId id2) {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'setId'");
+    // }
 }

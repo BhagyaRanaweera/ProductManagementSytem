@@ -1,6 +1,5 @@
 package com.example.productorderingsystem.entity;
 
-
 import com.example.productorderingsystem.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,22 +18,28 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Document(collection = "order_items")
 public class OrderItem {
-
     @Id
-    private String id; // Use String for MongoDB ObjectId
+    private String id; // MongoDB ObjectId as String
 
     private int quantity;
     private BigDecimal price;
     private OrderStatus status;
 
-    @DBRef // Use DBRef to reference other documents
+    @DBRef
     private User user;
 
-    @DBRef // Use DBRef to reference other documents
+    @DBRef
     private Product product;
 
-    @DBRef // Use DBRef to reference other documents
+    @DBRef
     private Order order;
 
-    private final LocalDateTime createdAt = LocalDateTime.now(); // Automatically set the creation time
+    private final LocalDateTime createdAt = LocalDateTime.now();
+
+    // ✅ Fixed `getProductId` method
+    public String getProductId() {
+        return product != null ? product.getId() : null;
+    }
+
+    
 }
