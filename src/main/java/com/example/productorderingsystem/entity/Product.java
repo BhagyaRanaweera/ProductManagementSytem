@@ -30,10 +30,7 @@ public class Product {
 
     private final LocalDateTime createdAt = LocalDateTime.now();
 
-    public String getCategoryId() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCategoryId'");
-    }
+   
 
     
 }
