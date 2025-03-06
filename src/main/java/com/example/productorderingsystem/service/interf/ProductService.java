@@ -15,4 +15,12 @@ public interface ProductService {
     Response getProductsByCategory(String categoryId);
     Response searchProduct(String searchValue);
     Response filterProducts(String categoryId, BigDecimal minPrice, BigDecimal maxPrice, String name, String sortBy, String sortDirection);
+    
+    
+   
+       // Response getProductByName(String productName);
+    
+    
+    
+    
 }

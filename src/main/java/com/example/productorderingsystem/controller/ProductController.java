@@ -91,12 +91,15 @@ public class ProductController {
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String sortDirection) {
 
-        return ResponseEntity.ok(productService.filterProducts(categoryId, minPrice, maxPrice, name, sortBy, sortDirection));
+        return ResponseEntity.ok(
+            productService.filterProducts(categoryId, minPrice, maxPrice, name, sortBy, sortDirection)
+        );
     }
 
-
-
-
-
+    // @GetMapping("/get-by-product-name/{productName}")
+    // public ResponseEntity<Response> getProductByName(@PathVariable String productName) {
+    //     return ResponseEntity.ok(productService.getProductByName(productName));
+    // }
+    
 
 }

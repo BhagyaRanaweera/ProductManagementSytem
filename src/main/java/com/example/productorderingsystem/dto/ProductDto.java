@@ -27,8 +27,5 @@ public class ProductDto {
     private BigDecimal price;
     private String imageUrl;
     private CategoryDto category;
-    // public void setId(ObjectId id2) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'setId'");
-    // }
+    
 }
